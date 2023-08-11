@@ -1,3 +1,4 @@
 Laravel Api made for everBlog
 
-![banner](https://github.com/aymendouibi/blogapi/assets/55748356/d3f88a8a-9de9-435a-a48d-257f157d50ff)
+
+![banner](https://github.com/aymendouibi/blogapi/assets/55748356/df50bee6-9999-4770-94ff-e1c76abe2de7)
