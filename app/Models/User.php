@@ -1,6 +1,6 @@
 <?php
 namespace App\Models;
-use Illuminate\Foundation\Auth\User as Authenticatable; // Import the Authenticatable trait
+use Illuminate\Foundation\Auth\User as Authenticatable;// Import the Authenticatable trait
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +12,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable,HasApiTokens;
     
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','image'
     ];
 
     protected $hidden = [

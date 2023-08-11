@@ -13,6 +13,7 @@ class CreateBlogsTable extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('image')->nullable();
+            $table-> json('category');
             $table->unsignedBigInteger('user_id');
             $table->integer('view_count')->default(0);
             $table->timestamps();

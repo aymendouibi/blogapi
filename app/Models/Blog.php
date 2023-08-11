@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Blog extends Model
 {
-    protected $fillable = ['title', 'content', 'image', 'user_id', 'view_count'];
+    protected $fillable = ['title', 'content', 'image', 'user_id', 'view_count','category'];
+    protected $casts = [
+        'category' => 'array'
+    ];
 
    
 

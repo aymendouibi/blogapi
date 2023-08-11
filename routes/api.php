@@ -30,3 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::get('blogs', [BlogController::class, 'index']);
 Route::get('user/blogs/{id}', [BlogController::class, 'getUserBlogs']);
+Route::get('/blogs/search', [BlogController::class, 'search']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::put('/user/update/{email}', [UserController::class, 'updateProfile']);
+});

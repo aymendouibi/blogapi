@@ -16,42 +16,59 @@ class BlogController extends Controller
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'title' => 'required|string',
-        'content' => 'required|string',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the validation rules as needed
-    ]);
+    {
+        $request->validate([
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category' => 'nullable|array' // Adjust the validation rules as needed
+        ]);
 
-    // Assuming you are using authentication and have an authenticated user
-    $user = auth()->user();
+        // Assuming you are using authentication and have an authenticated user
+        $user = auth()->user();
 
-    $blog = new Blog([
-        'title' => $request->title,
-        'content' => $request->content,
-        'user_id' => $user->id,
-        'view_count' => 0, // Initial view count set to 0
-    ]);
+        $blog = new Blog([
+            'title' => $request->title,
+            'content' => $request->content,
+            'user_id' => $user->id,
+            'view_count' => 0,
+            'category' => $request->category, // Initial view count set to 0
+        ]);
 
-    if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('blogs/images');
-        $blog->image = $imagePath;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('blogs/images');
+            $blog->image = $imagePath;
+        }
+
+        $blog->save();
+
+        return response()->json($blog, 201);
     }
-
-    $blog->save();
-
-    return response()->json($blog, 201);
-}
     public function getUserBlogs($userId)
-{
-    $user = User::find($userId);
+    {
+        $user = User::find($userId);
 
-    if (!$user) {
-        return response()->json(['error' => 'User not found'], 404);
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        $blogs = $user->blogs()->latest()->get();
+
+        return response()->json($blogs, 200);
     }
+    public function search(Request $request)
+    {
+        $request->validate([
+            'keywords' => 'required|string',
+        ]);
 
-    $blogs = $user->blogs()->latest()->get();
+        $keywords = $request->keywords;
 
-    return response()->json($blogs, 200);
-}
+        $blogs = Blog::where('title', 'LIKE', '%' . $keywords . '%')
+            ->orWhere('content', 'LIKE', '%' . $keywords . '%')
+            
+            ->get();
+
+        return response()->json($blogs, 200);
+    }
 }

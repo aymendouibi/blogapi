@@ -15,6 +15,7 @@ class BlogSeeder extends Seeder
             'title' => 'First Blog',
             'content' => 'This is the content of the first blog.',
             'user_id' => $user1->id,
+            'category'=>json_encode(['travel']),
            
             'view_count' => 0,
         ]);
@@ -23,7 +24,7 @@ class BlogSeeder extends Seeder
             'title' => 'Second Blog',
             'content' => 'This is the content of the second blog.',
             'user_id' => $user1->id,
-           
+            'category'=>json_encode(['travel']),
             'view_count' => 0,
         ]);
 

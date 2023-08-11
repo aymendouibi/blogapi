@@ -13,6 +13,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('image')->default('https://www.forthepeople.com/sites/default/files/theme-assets/ftp/images/attorneys/attorney-profile-placeholder.jpg');
             $table->timestamps();
             $table->rememberToken()->nullable();
         });
